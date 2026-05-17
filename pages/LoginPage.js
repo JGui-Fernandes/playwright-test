@@ -4,11 +4,11 @@ export class LoginPage {
   constructor(page) {
     this.page = page
 
-    this.emailInput = page.locator('[id="username"]')
-    this.passwordInput = page.locator('[id="password"]')
-    this.loginButton = page.locator('[id="signin-button"]')
-    this.logoImage = page.locator('[alt="Temelio"]')
-    this.welcomeText = page.locator('h1[data-sentry-element="Heading"]')
+    this.emailInput = page.locator('#username')
+    this.passwordInput = page.locator('#password')
+    this.loginButton = page.getByRole('button', { name: 'Sign In' })
+    this.logoImage = page.getByRole('link', { name: 'Temelio' })
+    this.welcomeText = page.getByRole('heading', { name: 'Welcome back' })
     
     this.endpoint = '/signin'
   }
@@ -32,8 +32,6 @@ export class LoginPage {
     await this.emailInput.fill(email)
     await this.passwordInput.fill(password)
     await this.loginButton.click()
-
-    // await expect(this.page.locator('[data-ph-capture-attribute-analytics-id="dashboard-add-widget"]'))
     
   }
 }

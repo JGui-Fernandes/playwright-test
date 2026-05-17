@@ -5,22 +5,23 @@ export class SideBar {
     constructor(page){
         this.page = page
 
-        this.searchInput = page.locator('[class="css-i9gxme"]')
-        this.notificationsButton = page.locator('[class="css-1eziwv"]')
-        this.dashboardButton = page.locator('[class="css-8uvc3n"]')
+        this.notificationsButton = page.getByRole('button', { name: 'Notifications' })
+        this.dashboardButton = page.getByRole('link', { name: 'Dashboard' }).first()
 
-        this.userOptionsButton = page.locator('[id="menu-button-:r7q:"]')
+        this.userOptionsButton = page.getByRole('button', { name: 'More' })
 
-        this.helpCenterButton = page.getByText('Help Center')
-        this.userPreferencesButton = page.getByText('User Settings')
-        this.logoutButton = page.getByText('Logout')
+        this.helpCenterButton = page.getByRole('menuitem', { name: 'Help Center' })
+        this.userSettingsButton = page.getByRole('menuitem', { name: 'User Settings' })
+        this.logoutButton = page.getByRole('menuitem', { name: 'Logout' })
+    }
+
+    async waitForLoading() {
+        await expect(this.dashboardButton).toBeVisible({ timeout: 10000 })
     }
 
     async verifyElements() {
-        await expect(this.searchInput).toBeVisible()
         await expect(this.notificationsButton).toBeVisible()
         await expect(this.dashboardButton).toBeVisible()
-
         await expect(this.userOptionsButton).toBeVisible()
     }
 
@@ -28,7 +29,11 @@ export class SideBar {
         await this.userOptionsButton.click()
 
         await expect(this.helpCenterButton).toBeVisible()
-        await expect(this.userPreferencesButton).toBeVisible()
+        await expect(this.userSettingsButton).toBeVisible()
         await expect(this.logoutButton).toBeVisible()
+    }
+
+    async clickUserSettings(){
+        this.userSettingsButton.click()
     }
 }
