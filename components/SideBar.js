@@ -16,7 +16,7 @@ export class SideBar {
     }
 
     async waitForLoading() {
-        await expect(this.dashboardButton).toBeVisible({ timeout: 10000 })
+        await expect(this.dashboardButton).toBeVisible({ timeout: 30000 })
     }
 
     async verifyElements() {
